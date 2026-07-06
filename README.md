@@ -57,9 +57,11 @@ If the name is wrong or not found, the system will show an error.
 ![Error Add Key](screenshots/error-add-key.png)
 
 Enter the contact name and the path of their public key file.
+
 ![Key Name](screenshots/key-name.png)
 
 You can view all saved contacts at any time.
+
 ![List Keys](screenshots/list-keys.png)
 
 ### Step 4: Encrypt File
