@@ -6,6 +6,7 @@ A secure file storage system that leverages hybrid cryptography to encrypt and d
 
 When you run the program for the first time, it will ask you to set a password.
 After entering the password , two "RSA" keys will be generated automatically:
+> This password protects your private key file. **Keep it safe — you will need it to decrypt files.**
 
 - 🔑 **Private Key** (`keys/private_key.pem`) — Keep this secret, never share it
 - 🌐 **Public Key** (`keys/public_key.pem`) — Share this with anyone who wants to send you encrypted files
