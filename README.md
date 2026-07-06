@@ -42,6 +42,7 @@ python GUI.py
 ## Screenshots
 
 ### Main Menu
+![Private Key Password](screenshots/private-key-pass.png)
 ![Main Menu](screenshots/main-menu.png)
 
 ### Add Contact
@@ -55,5 +56,4 @@ python GUI.py
 
 ### Decrypt File
 ![Enter Private Key Password](screenshots/enter-private-key-pass.png)
-![Private Key Password](screenshots/private-key-pass.png)
 ![File Decrypted Path](screenshots/file-decrypted-path.png)
