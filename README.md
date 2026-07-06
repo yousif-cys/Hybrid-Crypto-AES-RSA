@@ -65,19 +65,20 @@ You can view all saved contacts at any time.
 ![List Keys](screenshots/list-keys.png)
 
 ### Step 4: Encrypt File
-Select the file you want to encrypt, then enter the contact name to use their public key.
+**Select the file you want to Encrypt:** THEN enter the contact name to use their public key.
 
 ![Enter Key Name](screenshots/enter-key-name.png)
 
-The encrypted file will be saved in the `encrypted/` folder.
+**The Encrypted file will be saved** in the `encrypted/` folder.
 
 ![File Encrypted Path](screenshots/file-encrypted-path.png)
 
 ### Step 5: Decrypt File
-Enter the password you set in Step 1 to unlock the private key.
+**Select the file you want to Decrypted:**
+**THEN Enter the password you set in Step 1 to unlock the private key.**
 
 ![Enter Private Key Password](screenshots/enter-private-key-pass.png)
 
-The decrypted file will be saved in the `decrypted/` folder.
+**The decrypted file will be saved** in the `decrypted/` folder.
 
 ![File Decrypted Path](screenshots/file-decrypted-path.png)
