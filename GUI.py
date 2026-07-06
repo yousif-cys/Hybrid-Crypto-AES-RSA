@@ -16,7 +16,7 @@ def encrypt_action():
     if not input_file:
         return
     
-    # اختيار جهة الاتصال
+    # اختيار مفتاح المستلم العام
     contacts = load_contacts()
     if not contacts:
         messagebox.showerror("خطأ", " أضف  أولاً المفتاح")
@@ -123,7 +123,7 @@ btn_decrypt = tk.Button(
 )
 btn_decrypt.pack(pady=10)
 
-# زر إضافة جهة اتصال
+# زر إضافة مفتاج المستلم
 btn_add = tk.Button(
     frame,
     text="👤 Add Contact",
@@ -136,7 +136,7 @@ btn_add = tk.Button(
 )
 btn_add.pack(pady=10)
 
-# زر عرض جهات الاتصال
+# زر عرض المفاتيح الموجوده
 btn_list = tk.Button(
     frame,
     text="📋 List Contacts",
