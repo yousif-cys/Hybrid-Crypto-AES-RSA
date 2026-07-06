@@ -2,6 +2,17 @@
 
 A secure file storage system that leverages hybrid cryptography to encrypt and decrypt files safely.
 
+## ⚠️ Important: First Time Setup
+
+When you run the program for the first time, it will ask you to set a password.
+After entering the password, two "RSA" keys will be generated automatically:
+
+- 🔑 **Private Key** (`keys/private_key.pem`) — Keep this secret, never share it
+- 🌐 **Public Key** (`keys/public_key.pem`) — Share this with anyone who wants to send you encrypted files
+
+> Anyone who has your **Public Key** can encrypt a file and send it to you.
+> Only **you** can decrypt it using your **Private Key + the first password**.
+
 ## ⚙️ How It Works
 - **AES-256-GCM:** Encrypts the file content with high performance and data integrity verification.
 - **RSA-2048:** Encrypts the AES key securely for safe key distribution.
@@ -82,3 +93,6 @@ You can view all saved contacts at any time.
 **The decrypted file will be saved in the `decrypted/` folder.**
 
 ![File Decrypted Path](screenshots/file-decrypted-path.png)
+
+## 👨‍💻 Author
+- **GitHub:** [yousif-cys](https://github.com/yousif-cys)
