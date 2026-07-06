@@ -40,9 +40,9 @@ python GUI.py
 └── contacts.py       # Contact and public key management
 ```
 ## Screenshots
-
-### Main Menu
+### FIRST THING ENTER PASSWORD TO GENERATE THE PRIVATE,PUBLIC KEYS AND USE THE PASSWORD YOU ENTERED TO SECURE THE PRIVATE-KEY FILE 
 ![Private Key Password](screenshots/private-key-pass.png)
+### Main Menu
 ![Main Menu](screenshots/main-menu.png)
 
 ### Add Contact
