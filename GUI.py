@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox, simpledialog
+from unittest import result
 from file_handler import encrypt_file, decrypt_file
 from contacts import save_contacts, list_contacts, load_contacts
 from rsa_keys import generate_rsa_keys, save_private_key, save_public_key
@@ -7,79 +8,117 @@ from main import setup_keys
 import os
 
 
-
 private_key_path, public_key_path = setup_keys()
 
+
+def prompt_large_input(parent, title, prompt):
+    dialog = tk.Toplevel(parent)
+    dialog.title(title)
+    dialog.geometry("420x180")
+    dialog.resizable(False, False)
+    dialog.transient(parent)
+    dialog.grab_set()
+
+    tk.Label(dialog, text=prompt, font=("Arial", 11), wraplength=360).pack(padx=20, pady=(20, 10))
+
+    entry = tk.Entry(dialog, width=35, font=("Arial", 11))
+    entry.pack(padx=20, pady=10)
+    entry.focus_set()
+
+    result = {"value": None}
+
+    def submit():
+        result["value"] = entry.get()
+        dialog.destroy()
+
+    def cancel():
+        dialog.destroy()
+
+    button_frame = tk.Frame(dialog)
+    button_frame.pack(pady=15)
+    tk.Button(button_frame, text="OK", width=10, command=submit).pack(side="left", padx=10)
+    tk.Button(button_frame, text="Cancel", width=10, command=cancel).pack(side="left", padx=10)
+
+    dialog.wait_window(dialog)
+    return result["value"]
+
+
 def encrypt_action():
-    # اختيار الملف
-    input_file = filedialog.askopenfilename(title="اختر الملف للتشفير")
+    # Select the file
+    input_file = filedialog.askopenfilename(title="Select the file to encrypt")
     if not input_file:
         return
-    
-    # اختيار جهة الاتصال
+
+    # Select the recipient's public key
     contacts = load_contacts()
     if not contacts:
-        messagebox.showerror("خطأ", " أضف  أولاً المفتاح")
+        messagebox.showerror("ERROR", "ADD KEY FIRST")
         return
-    
-    names = list(contacts.keys())
-    name = simpledialog.askstring("اسم المفتاح ", f"أدخل اسم المفتاح :\n{', '.join(names)}")
-    if not name or name not in contacts:
-        messagebox.showerror("خطأ", "غير موجودة")
-        return
-    
-    selected_public_key = contacts[name]
-    
-    # مسار الحفظ
+
+    while True:
+        names = list(contacts.keys())
+        name = simpledialog.askstring("Key Name", f"Enter the key name:\n{', '.join(names)}")
+        
+        if name is None:  
+            return
+        elif name in contacts:
+            selected_public_key = contacts[name]
+            break
+        else:
+            messagebox.showerror("❌ Error", f"'{name}' not found, please enter the correct name")
+
+    # Save path
     filename = os.path.basename(input_file)
     output_file = f"encrypted/{filename}.enc"
-    
+
     encrypt_file(input_file, output_file, selected_public_key)
-    messagebox.showinfo("✅ نجاح", f"تم تشفير الملف!\nمحفوظ في: {output_file}")
+    messagebox.showinfo("Success", f"File encrypted!\nSaved to: {output_file}")
 
 
 def decrypt_action():
-    input_file = filedialog.askopenfilename(title="اختر الملف المشفر")
+    input_file = filedialog.askopenfilename(title="Select the encrypted file")
     if not input_file:
         return
-    
-    password = simpledialog.askstring("كلمة المرور", "أدخل كلمة المرور أو اتركها فارغة:", show='*')
-    
+
+    password = simpledialog.askstring("Password", "Enter the password to decrypt the file:", show='*')
+
     filename = os.path.basename(input_file).replace('.enc', '')
     output_file = f"decrypted/{filename}"
-    
-    decrypt_file(input_file, output_file, private_key_path, password)
-    messagebox.showinfo("✅ نجاح", f"تم فك التشفير!\nمحفوظ في: {output_file}")
+
+    result = decrypt_file(input_file, output_file, private_key_path, password)
+    if result:
+        messagebox.showinfo("✅ Success", f"File decrypted!\nSaved to: {output_file}")
 
 
 def add_contact_action():
-    name = simpledialog.askstring("إضافة مفتاح عام", "أدخل الاسم:")
+    name = prompt_large_input(window, "Add public key", "Enter the name of the key:")
     if not name:
         return
-    
-    key_path = filedialog.askopenfilename(title="اختر ملف المفتاح العام")
+
+    key_path = filedialog.askopenfilename(title="Choose the public key file")
     if not key_path:
         return
-    
+
     save_contacts(name, key_path)
-    messagebox.showinfo("✅ نجاح", f"تم إضافة {name} بنجاح!")
+    messagebox.showinfo("Success", f"{name} added successfully!")
 
 
 def list_contacts_action():
     contacts = load_contacts()
     if not contacts:
-        messagebox.showinfo(" اسماء المفاتيح", "لا يوجد اي مفتاح محفوظ")
+        messagebox.showinfo("Saved Keys", "No saved keys found")
         return
-    
+
     text = "\n".join([f"👤 {name}: {path}" for name, path in contacts.items()])
-    messagebox.showinfo("اسماء المفاتيح", text)
-# إنشاء النافذة الرئيسية
+    messagebox.showinfo("Saved Keys", text)
+
+# Create the main window
 window = tk.Tk()
 window.title("Secure File Storage")
 window.geometry("400x500")
 window.resizable(False, False)
 
-# العنوان
+# Title
 title = tk.Label(
     window,
     text="🔐 Secure File Storage",
@@ -89,15 +128,16 @@ title.pack(pady=20)
 
 subtitle = tk.Label(
     window,
-    text="( AES + RSA Hybrid Encryption )",
+    text="(AES + RSA Hybrid Encryption)",
     font=("Arial", 10)
 )
 subtitle.pack()
-# إطار للأزرار
+
+# Button frame
 frame = tk.Frame(window)
 frame.pack(pady=30)
 
-# زر التشفير
+# Encrypt button
 btn_encrypt = tk.Button(
     frame,
     text="🔐 Encrypt File",
@@ -110,7 +150,7 @@ btn_encrypt = tk.Button(
 )
 btn_encrypt.pack(pady=10)
 
-# زر فك التشفير
+# Decrypt button
 btn_decrypt = tk.Button(
     frame,
     text="🔓 Decrypt File",
@@ -123,10 +163,10 @@ btn_decrypt = tk.Button(
 )
 btn_decrypt.pack(pady=10)
 
-# زر إضافة جهة اتصال
+# Add recipient key button
 btn_add = tk.Button(
     frame,
-    text="👤 Add Contact",
+    text="👤 Add Keys",
     font=("Arial", 12),
     width=25,
     height=2,
@@ -136,10 +176,10 @@ btn_add = tk.Button(
 )
 btn_add.pack(pady=10)
 
-# زر عرض جهات الاتصال
+# List keys button
 btn_list = tk.Button(
     frame,
-    text="📋 List Contacts",
+    text="📋 List available Keys",
     font=("Arial", 12),
     width=25,
     height=2,

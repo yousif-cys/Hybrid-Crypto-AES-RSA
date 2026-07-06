@@ -1,3 +1,4 @@
+from tkinter import messagebox, simpledialog
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import serialization, hashes
 import os
@@ -46,13 +47,16 @@ def load_private_key(filepath, password):
             return serialization.load_pem_private_key(pem_data, password=pwd)
         
         except Exception:
-            print("❌ the password is INCORRECT : ")
-            password = input("ENTER THE PASSWORD again of type'exit' to cancel: ").strip()
+            password = simpledialog.askstring(
+                "❌ the password is INCORRECT : ",
             
-            if password == "exit":
-                print("❌ Canceling")
+                "ENTER THE PASSWORD again or Click 'Cancel' to cancel the process : ",
+                show='*'
+            )
+            if password is None:
+                messagebox.showinfo("❌ Canceling","the process has been canceled")
                 return None
-
+        
 def load_public_key(filepath):
     
     with open(filepath, 'rb') as f:

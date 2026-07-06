@@ -34,7 +34,7 @@ def encrypt_file(input_path: str, output_path: str, public_key_path: str):
     
     # 5. كتابة كل شيء في ملف واحد
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    
+
     with open(output_path, 'wb') as f:
         # طول مفتاح AES المشفر (لنعرف كم بايت نقرأ عند فك التشفير)
         key_length = len(encrypted_aes_key)
@@ -77,7 +77,7 @@ def decrypt_file(input_path: str, output_path: str, private_key_path: str, passw
     private_key = load_private_key(private_key_path, password)
     if private_key is None:
         print("❌ we cancel the process")
-        return
+        return False
     aes_key = rsa_decrypt(private_key, encrypted_aes_key)
     
     # 6. فك تشفير الملف بـ AES
@@ -89,3 +89,4 @@ def decrypt_file(input_path: str, output_path: str, private_key_path: str, passw
         f.write(plaintext)
     
     print(f"✅ we decrypting the file: {output_path}")
+    return True
