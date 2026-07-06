@@ -51,7 +51,7 @@ This password protects your private key file. **Keep it safe — you will need i
 ![Main Menu](screenshots/main-menu.png)
 
 ### Step 3: Add Contact
-Before encrypting, you must add the recipient's public key.
+**Before encrypting, you must add the recipient's public key.**
 If the name is wrong or not found, the system will show an error.
 
 ![Error Add Key](screenshots/error-add-key.png)
@@ -65,11 +65,11 @@ You can view all saved contacts at any time.
 ![List Keys](screenshots/list-keys.png)
 
 ### Step 4: Encrypt File
-**Select the file you want to Encrypt:** THEN enter the contact name to use their public key.
+**Select the file you want to Encrypt:** THEN Enter the **contact name** to use their public key.
 
 ![Enter Key Name](screenshots/enter-key-name.png)
 
-**The Encrypted file will be saved** in the `encrypted/` folder.
+**The Encrypted file will be saved in the `encrypted/` folder.**
 
 ![File Encrypted Path](screenshots/file-encrypted-path.png)
 
@@ -79,6 +79,6 @@ You can view all saved contacts at any time.
 
 ![Enter Private Key Password](screenshots/enter-private-key-pass.png)
 
-**The decrypted file will be saved** in the `decrypted/` folder.
+**The decrypted file will be saved in the `decrypted/` folder.**
 
 ![File Decrypted Path](screenshots/file-decrypted-path.png)
