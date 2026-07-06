@@ -40,20 +40,37 @@ python GUI.py
 └── contacts.py       # Contact and public key management
 ```
 ## Screenshots
-### FIRST THING ENTER PASSWORD TO GENERATE THE PRIVATE,PUBLIC KEYS AND USE THE PASSWORD YOU ENTERED TO SECURE THE PRIVATE-KEY FILE 
+
+### Step 1: Generate RSA Keys
+When you run the program for the first time, it will ask you to set a password.
+This password protects your private key file. **Keep it safe — you will need it to decrypt files.**
 ![Private Key Password](screenshots/private-key-pass.png)
-### Main Menu
+
+### Step 2: Main Menu
+The main window with 4 options: Encrypt, Decrypt, Add Contact, List Contacts.
 ![Main Menu](screenshots/main-menu.png)
 
-### Add Contact
+### Step 3: Add Contact
+Before encrypting, you must add the recipient's public key.
+If the name is wrong or not found, the system will show an error.
 ![Error Add Key](screenshots/error-add-key.png)
+
+Enter the contact name and the path of their public key file.
 ![Key Name](screenshots/key-name.png)
+
+You can view all saved contacts at any time.
 ![List Keys](screenshots/list-keys.png)
 
-### Encrypt File
+### Step 4: Encrypt File
+Select the file you want to encrypt, then enter the contact name to use their public key.
 ![Enter Key Name](screenshots/enter-key-name.png)
+
+The encrypted file will be saved in the `encrypted/` folder.
 ![File Encrypted Path](screenshots/file-encrypted-path.png)
 
-### Decrypt File
+### Step 5: Decrypt File
+Enter the password you set in Step 1 to unlock the private key.
 ![Enter Private Key Password](screenshots/enter-private-key-pass.png)
+
+The decrypted file will be saved in the `decrypted/` folder.
 ![File Decrypted Path](screenshots/file-decrypted-path.png)
