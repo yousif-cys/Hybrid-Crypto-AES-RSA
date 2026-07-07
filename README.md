@@ -1,6 +1,16 @@
 # 🔐 Hybrid Crypto System (AES + RSA)
 
-A secure file storage system that leverages hybrid cryptography to encrypt and decrypt files safely.
+## 🔐 Why Hybrid Cryptography?
+
+This system combines the strengths of both cryptographic worlds:
+
+| | Algorithm | Role |
+|---|---|---|
+| ⚡ **Performance** | AES-256-GCM | Fast encryption for large files |
+| 🛡️ **Security** | RSA-2048 | Secure key exchange |
+
+> **The Problem:** AES alone requires sharing the secret key — how do you share it safely?
+> **The Solution:** RSA encrypts the AES key, so only the recipient can unlock it with their private key.
 
 ## ⚠️ Important: First Time Setup
 
